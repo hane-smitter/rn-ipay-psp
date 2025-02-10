@@ -1,27 +1,28 @@
 import { useEffect } from "react";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
-import { Link, Stack, useNavigation } from "expo-router";
-import { Button, StyleSheet } from "react-native";
+import { useLocalSearchParams, useNavigation, useRouter } from "expo-router";
+import { StyleSheet, Text } from "react-native";
+
+import CustomButton from "@/components/CustomButton";
+import CustomHeader from "@/components/CustomHeader";
 
 function Home() {
-  const navigation = useNavigation();
-
-  useEffect(() => {
-    navigation.setOptions({
-      title: "Home", // Set the header title
-      headerShown: true, // Show the header
-    });
-  }, [navigation]);
+  const router = useRouter();
 
   return (
     <>
-      <Stack.Screen options={{ title: "Home" }} />
+      {/* <Stack.Screen options={{ title: "Home", headerShown: true }} /> */}
+      <CustomHeader title="Home" />
       <ThemedView style={styles.body}>
-        <ThemedText>It is a wonderfuller HOME Screen</ThemedText>
-        <Link href="/lost-route">
+        <ThemedText>It is a wonderful HOME Screen</ThemedText>
+        <CustomButton
+          title="Go to Lostness"
+          onPress={() => router.push("/lost-route")}
+        />
+        {/* <Link href="/lost-route">
           <Button title="Go to Lostness" />
-        </Link>
+        </Link> */}
       </ThemedView>
     </>
   );
