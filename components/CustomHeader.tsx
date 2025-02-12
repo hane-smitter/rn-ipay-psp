@@ -21,7 +21,6 @@ export default function CustomHeader({
 
   const navigation = useNavigation();
   const params = useLocalSearchParams();
-
   // Get the navigation state to check the history stack
   const navigationState = useNavigationState((state) => state);
 

@@ -19,7 +19,7 @@ function Home() {
           Click to open an <Text style={{ fontWeight: 700 }}>iPay</Text> payment gateway
         </ThemedText>
         <CustomButton
-          title="Go to Lostness"
+          title="Open Gateway"
           onPress={() => router.push("/lost-route")}
         />
         {/* <Link href="/lost-route">
