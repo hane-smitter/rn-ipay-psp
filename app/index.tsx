@@ -15,7 +15,9 @@ function Home() {
       {/* <Stack.Screen options={{ title: "Home", headerShown: true }} /> */}
       <CustomHeader title="Home" />
       <ThemedView style={styles.body}>
-        <ThemedText>It is a wonderful HOME Screen</ThemedText>
+        <ThemedText>
+          Click to open an <Text style={{ fontWeight: 700 }}>iPay</Text> payment gateway
+        </ThemedText>
         <CustomButton
           title="Go to Lostness"
           onPress={() => router.push("/lost-route")}
@@ -31,7 +33,7 @@ function Home() {
 const styles = StyleSheet.create({
   body: {
     flex: 1,
-    backgroundColor: "#fdf011",
+    backgroundColor: "#f69422",
     alignItems: "center",
     justifyContent: "center",
   },

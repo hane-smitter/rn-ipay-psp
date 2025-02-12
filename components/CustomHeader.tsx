@@ -1,10 +1,24 @@
 import { useNavigation, useLocalSearchParams } from "expo-router";
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity, Platform } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigationState } from "@react-navigation/native";
 import { IconSymbol } from "./ui/IconSymbol";
+import { useThemeColor } from "@/hooks/useThemeColor";
 
-export default function CustomHeader({ title }: { title: string }) {
+export default function CustomHeader({
+  title,
+  lightColor,
+  darkColor,
+}: {
+  title: string;
+  lightColor?: string;
+  darkColor?: string;
+}) {
+  const backgroundColor = useThemeColor(
+    { light: lightColor, dark: darkColor },
+    "background"
+  );
+
   const navigation = useNavigation();
   const params = useLocalSearchParams();
 
@@ -23,8 +37,25 @@ export default function CustomHeader({ title }: { title: string }) {
         style={{
           flexDirection: "row",
           alignItems: "center",
-          paddingHorizontal: 16,
+          paddingInline: 16,
           height: 56,
+          backgroundColor,
+          ...Platform.select({
+            ios: {
+              shadowColor: "#000",
+              shadowOffset: {
+                width: 0,
+                height: 2 /* Positive value creates shadow below */,
+              },
+              shadowOpacity: 0.1,
+              shadowRadius: 3,
+            },
+            android: {
+              // elevation: 5,
+              borderBottomWidth: 0.3,
+              borderBottomColor: "rgba(0,0,0,0.06)",
+            },
+          }),
         }}
       >
         {/* Conditionally render the back button */}
@@ -35,14 +66,10 @@ export default function CustomHeader({ title }: { title: string }) {
             hitSlop={10}
           >
             {/* <Text style={{ fontSize: 16, color: "blue" }}>Back</Text> */}
-            <IconSymbol
-              name="arrowkeys.left.filled"
-              size={24}
-              color={"black"}
-            />
+            <IconSymbol name="chevron.left" size={24} color={"black"} />
           </TouchableOpacity>
         )}
-        <Text style={{ fontSize: 20, fontWeight: 500, marginLeft: 20 }}>
+        <Text style={{ fontSize: 20, fontWeight: 500, marginLeft: 15 }}>
           {title}
         </Text>
       </View>

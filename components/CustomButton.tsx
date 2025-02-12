@@ -59,10 +59,10 @@ const styles = StyleSheet.create({
     marginVertical: 5,
   },
   primary: {
-    backgroundColor: "#007bff",
+    backgroundColor: "#276fc2",
   },
   secondary: {
-    backgroundColor: "#6c757d",
+    backgroundColor: "##f69422",
   },
   outline: {
     backgroundColor: "transparent",

@@ -14,7 +14,7 @@ const MAPPING = {
   "chevron.left.forwardslash.chevron.right": "code",
   "chevron.right": "chevron-right",
   banknote: "payments",
-  "arrowkeys.left.filled": "west",
+  "chevron.left": "arrow-back-ios-new",
 } as Partial<
   Record<
     SymbolViewProps["name"],
