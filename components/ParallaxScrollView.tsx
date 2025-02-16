@@ -10,21 +10,28 @@ import Animated, {
 import { ThemedView } from "@/components/ThemedView";
 // import { useBottomTabOverflow } from '@/components/ui/TabBarBackground';
 import { useColorScheme } from "@/hooks/useColorScheme";
+import CustomHeader from "./CustomHeader";
+import { usePathname } from "expo-router";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 
 const HEADER_HEIGHT = 250;
 
 type Props = PropsWithChildren<{
   headerImage: ReactElement;
-  headerBackgroundColor: { dark: string; light: string };
+  headerBgColor: { dark: string; light: string };
   contentViewStyle?: ViewProps["style"];
+  screenTitle?: string;
 }>;
 
 export default function ParallaxScrollView({
   children,
   headerImage,
-  headerBackgroundColor,
+  headerBgColor,
   contentViewStyle,
+  screenTitle,
 }: Props) {
+  const screenTitleHeading = screenTitle || usePathname();
+
   const colorScheme = useColorScheme() ?? "light";
   const scrollRef = useAnimatedRef<Animated.ScrollView>();
   const scrollOffset = useScrollViewOffset(scrollRef);
@@ -51,29 +58,32 @@ export default function ParallaxScrollView({
   });
 
   return (
-    <ThemedView style={styles.container}>
-      <Animated.ScrollView
-        ref={scrollRef}
-        scrollEventThrottle={16}
-        // scrollIndicatorInsets={{ bottom }}
-        contentContainerStyle={{ flex: 1 }}
-      >
-        <Animated.View
-          style={[
-            styles.header,
-            { backgroundColor: headerBackgroundColor[colorScheme] },
-            headerAnimatedStyle,
-          ]}
+    <SafeAreaProvider>
+      <CustomHeader title={screenTitleHeading} />
+      <ThemedView style={styles.container}>
+        <Animated.ScrollView
+          ref={scrollRef}
+          scrollEventThrottle={16}
+          // scrollIndicatorInsets={{ bottom }}
+          contentContainerStyle={{ flex: 1 }}
         >
-          {headerImage}
-        </Animated.View>
-        <ThemedView
-          style={[styles.content, contentViewStyle && contentViewStyle]}
-        >
-          {children}
-        </ThemedView>
-      </Animated.ScrollView>
-    </ThemedView>
+          <Animated.View
+            style={[
+              styles.header,
+              { backgroundColor: headerBgColor[colorScheme] },
+              headerAnimatedStyle,
+            ]}
+          >
+            {headerImage}
+          </Animated.View>
+          <ThemedView
+            style={[styles.content, contentViewStyle && contentViewStyle]}
+          >
+            {children}
+          </ThemedView>
+        </Animated.ScrollView>
+      </ThemedView>
+    </SafeAreaProvider>
   );
 }
 
@@ -84,6 +94,7 @@ const styles = StyleSheet.create({
   header: {
     height: HEADER_HEIGHT,
     overflow: "hidden",
+    position: "relative",
   },
   content: {
     flex: 1,

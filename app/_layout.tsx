@@ -4,7 +4,6 @@ import {
   DefaultTheme,
   ThemeProvider,
 } from "@react-navigation/native";
-import { SafeAreaProvider } from "react-native-safe-area-context";
 import { useFonts } from "expo-font";
 import { Slot, Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
@@ -33,20 +32,18 @@ export default function RootLayout() {
   }
 
   return (
-    <SafeAreaProvider>
-      <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-        <Stack
-          screenOptions={{
-            headerShown: false, // Disable header for all screens
-          }}
-        >
-          {/* <Stack.Screen name="index" />
+    <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
+      <Stack
+        screenOptions={{
+          headerShown: false, // Disable header for all screens
+        }}
+      >
+        {/* <Stack.Screen name="index" />
           <Stack.Screen name="+not-found" /> */}
-          <Slot />
-        </Stack>
+        <Slot />
+      </Stack>
 
-        <StatusBar style="auto" />
-      </ThemeProvider>
-    </SafeAreaProvider>
+      <StatusBar style="auto" />
+    </ThemeProvider>
   );
 }
